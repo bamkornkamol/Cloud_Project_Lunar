@@ -31,10 +31,10 @@
         <div class='flex flex-col items-center mt-10 mx-20'>
             <div class='w-10/12'>
                 <h1 class='text-3xl font-medium tracking-wide'>หอพัก</h1>
-                <p class='mt-5 mb-5'>หอพักของคุณ {{user[0].fname}}</p>
+                <p class='mt-5 mb-5'>หอพักทั้งหมดของคุณ {{user[0].fname}}</p>
             </div>
             <div class="text-gray-400 text-xl" v-bind:class="{'invisible':dormitory.length != 0}">คุณ {{user[0].fname}} ยังไม่มีหอพัก</div>
-            <div class='grid grid-cols-2 gap-10 mb-20 w-9/12'>
+            <div class='grid grid-cols-2 gap-10 mb-20 w-9/12 cursor-default'>
                 <div v-for="val in dormitory" :key="val">
                     <div @click="detailDor(val.id)" class="w-full flex flex-col items-center text-left bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 hover:no-underline hover:shadow-lg">
                         <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="../../public/uploads/image.png" alt=""/>

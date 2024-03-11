@@ -17,7 +17,6 @@
                     <th class='p-2 border-gray-300 border-2'>ชื่อผู้เช่า1</th>
                     <th class='p-2 border-gray-300 border-2 '>ชื่อผู้เช่า2</th>
                     <th class='p-2 border-gray-300 border-2 w-1/12'>รายละเอียด</th>
-                    <th class='p-2 border-gray-300 border-2 w-1/12'>แก้ไข</th>
                     <th class='p-2 border-gray-300 border-2 w-1/12'>ลบ</th>
                 </tr>
                 <tr v-for="val in renter" :key="val">
@@ -25,9 +24,6 @@
                     <td class="border-2 border-gray-300 px-4 py-2">{{val.type}}</td>
                     <td class="border-2 border-gray-300 px-4 py-2">{{val.name1}}</td>
                     <td class="border-2 border-gray-300 px-4 py-2">{{val.name2}}</td>
-                    <td class="border-2 border-gray-300 px-4 py-2">
-                        <div class="cursor-pointer underline" @click="detailRenter(val.id)">ดู</div>
-                    </td>
                     <td class="border-2 border-gray-300 px-4 py-2">
                         <div class="w-full flex justify-center cursor-pointer" @click="editRenter(val.id)">
                             <svg class="feather feather-edit" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -69,6 +65,7 @@ export default {
         };
     },
     created() {
+        this.renter=null;
       axios.get("http://localhost:3000/Renter/" + this.userId+'/'+this.dorId)
       .then((response) => {
         this.renter = response.data.renter[0];
@@ -79,9 +76,6 @@ export default {
       });
     },
     methods: {
-        detailRenter(id){
-            this.$router.push('/RenterDetail/'+this.userId+'/'+this.dorId+'/'+id)
-        },
         addRenter(){
             this.$router.push('/AddRenter/'+this.userId+'/'+this.dorId)
         },

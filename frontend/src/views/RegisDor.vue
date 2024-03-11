@@ -75,8 +75,8 @@
                             <input v-model="floor" type="number" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
                         </div>
                         <div>
-                            <h1 class="mt-3 mb-3 font-medium">วันตัดรอบบิล :</h1>
-                            <input v-model="duedate" type="month" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
+                            <h1 class="mt-3 mb-3 font-medium">วันที่ตัดรอบบิล :</h1>
+                            <input v-model="duedate" type="number" v-bind:class="{'border-red-600':checkDue}" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
                         </div>
                         <div>
                             <h1 class="mt-3 mb-3 font-medium">ค่าน้ำ (/หน่วย) : </h1>
@@ -107,60 +107,84 @@ export default {
   },
   data() {
         return {
-          name: '',
-          address: '',
-          province: '',
-          district: '',
-          parish: '',
-          post:'',
-          phone:'',
-          room:0,
-          floor:0,
-          water:0,
-          light:0,
-          duedate:null
+          name: null,
+          address: null,
+          province: null,
+          district: null,
+          parish: null,
+          post:null,
+          phone:null,
+          room:null,
+          floor:null,
+          water:null,
+          light:null,
+          duedate:null,
+          checkDue: false
         };
     },
     methods: {
         regis(){
-            // if(this.name==null || this.address==null || this.province==null || this.district==null ||)
-            let formData = new FormData();
-            formData.append("name", this.name);
-            formData.append("address", this.address);
-            formData.append("province", this.province);
-            formData.append("district", this.district);
-            formData.append("parish", this.parish);
-            formData.append("post", this.post);
-            formData.append("phone", this.phone);
-            formData.append("room", this.room);
-            formData.append("floor", this.floor);
-            formData.append("water", this.water);
-            formData.append("light", this.light);
-            formData.append("duedate", this.duedate);
-            
-            for (const value of formData.values()){
-                console.log(value);
-            }
-
-            axios.post("http://localhost:3000/RegisDor/"+this.$route.params.userId, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((response) => {
-                console.log(response.data[0])
+            if(this.name==null || this.address==null || this.province==null || this.district==null ||
+            this.parish==null || this.post==null || this.phone==null || this.room==null ||
+            this.floor==null || this.water==null || this.light==null || this.duedate==null ||
+            this.name=="" || this.address=="" || this.province=="" || this.district=="" ||
+            this.parish=="" || this.post=="" || this.phone=="" || this.room=="" ||
+            this.floor=="" || this.water=="" || this.light=="" || this.duedate==""){
                 Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'ลงทะเบียนหอพักสำเร็จ',
+                    position: 'center',
+                    icon: 'info',
+                    title: 'กรุณากรอกข้อมูลให้ครบถ้วน',
                     showConfirmButton: false,
                     timer: 1500
-                }).then(() => {
-                    this.$router.push('/HomeLogin/'+this.$route.params.userId)
                 })
-            }).catch((err) => {
-                console.log(err)
-            })
+            }else if(this.duedate>=32 || this.duedate<=0){
+                this.checkDue = true;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: 'กรุณากรอกวันที่ตัดรอบบิลให้ถูกต้อง',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }else{
+                let formData = new FormData();
+                formData.append("name", this.name);
+                formData.append("address", this.address);
+                formData.append("province", this.province);
+                formData.append("district", this.district);
+                formData.append("parish", this.parish);
+                formData.append("post", this.post);
+                formData.append("phone", this.phone);
+                formData.append("room", this.room);
+                formData.append("floor", this.floor);
+                formData.append("water", this.water);
+                formData.append("light", this.light);
+                formData.append("duedate", this.duedate);
+                
+                for (const value of formData.values()){
+                    console.log(value);
+                }
+
+                axios.post("http://localhost:3000/RegisDor/"+this.$route.params.userId, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                .then((response) => {
+                    console.log(response.data[0])
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'ลงทะเบียนหอพักสำเร็จ',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        this.$router.push('/HomeLogin/'+this.$route.params.userId)
+                    })
+                }).catch((err) => {
+                    console.log(err)
+                })
+            }
         },
         homeLogin(){
             this.$router.push('/HomeLogin/'+this.$route.params.userId)

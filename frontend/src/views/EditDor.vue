@@ -61,7 +61,7 @@
                         </div>
                         <div>
                             <h1 class="mt-3 mb-3 font-medium">วันตัดรอบบิล :</h1>
-                            <input :value="dormitory[0].duedate" id="duedate" type="month" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
+                            <input :value="dormitory[0].duedate" id="duedate" type="number" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
                         </div>
                         <div>
                             <h1 class="mt-3 mb-3 font-medium">ค่าน้ำ (/หน่วย) : </h1>
@@ -92,17 +92,17 @@ export default {
   },
   data() {
         return {
-            name: '',
-            address: '',
-            province: '',
-            district: '',
-            parish: '',
-            post:'',
-            phone:'',
-            room:0,
-            floor:0,
-            water:0,
-            light:0,
+            name: null,
+            address: null,
+            province: null,
+            district: null,
+            parish: null,
+            post:null,
+            phone:null,
+            room:null,
+            floor:null,
+            water:null,
+            light:null,
             duedate:null,
             dormitory:null,
             userId : this.$route.params.userId,
@@ -122,43 +122,65 @@ export default {
     },
     methods: {
         regis(){
-            let formData = new FormData();
-            formData.append("name", document.getElementById('name').value);
-            formData.append("address", document.getElementById('address').value);
-            formData.append("province", document.getElementById('province').value);
-            formData.append("district", document.getElementById('district').value);
-            formData.append("parish", document.getElementById('parish').value);
-            formData.append("post", document.getElementById('post').value);
-            formData.append("phone", document.getElementById('phone').value);
-            formData.append("room", document.getElementById('room').value);
-            formData.append("floor", document.getElementById('floor').value);
-            formData.append("water", document.getElementById('water').value);
-            formData.append("light", document.getElementById('light').value);
-            formData.append("duedate", document.getElementById('duedate').value);
-            
-            for (const value of formData.values()){
-                console.log(value);
-            }
-
-            axios.put("http://localhost:3000/editDormitory/"+this.userId+'/'+this.dorId, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((response) => {
-                console.log(response.data[0])
+            if(
+            document.getElementById("name").value=="" || document.getElementById("address").value=="" || document.getElementById("province").value=="" || document.getElementById("district").value=="" ||
+            document.getElementById("parish").value=="" || document.getElementById("post").value=="" || document.getElementById("phone").value=="" || document.getElementById("room").value=="" ||
+            document.getElementById("floor").value=="" || document.getElementById("water").value=="" || document.getElementById("light").value=="" || document.getElementById("duedate").value==""){
                 Swal.fire({
                     position: 'center',
-                    icon: 'success',
-                    title: 'แก้ไขสำเร็จ',
+                    icon: 'info',
+                    title: 'กรุณากรอกข้อมูลให้ครบถ้วน',
                     showConfirmButton: false,
                     timer: 1500
-                }).then(() => {
-                    this.$router.push('/Dormitory/'+this.userId+'/'+this.dorId)
                 })
-            }).catch((err) => {
-                console.log(err)
-            })
+            }else if(document.getElementById("duedate").value>=32 || document.getElementById("duedate").value<=0){
+                this.checkDue = true;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: 'กรุณากรอกวันที่ตัดรอบบิลให้ถูกต้อง',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }else{
+                let formData = new FormData();
+                formData.append("name", document.getElementById('name').value);
+                formData.append("address", document.getElementById('address').value);
+                formData.append("province", document.getElementById('province').value);
+                formData.append("district", document.getElementById('district').value);
+                formData.append("parish", document.getElementById('parish').value);
+                formData.append("post", document.getElementById('post').value);
+                formData.append("phone", document.getElementById('phone').value);
+                formData.append("room", document.getElementById('room').value);
+                formData.append("floor", document.getElementById('floor').value);
+                formData.append("water", document.getElementById('water').value);
+                formData.append("light", document.getElementById('light').value);
+                formData.append("duedate", document.getElementById('duedate').value);
+                
+                for (const value of formData.values()){
+                    console.log(value);
+                }
+
+                axios.put("http://localhost:3000/editDormitory/"+this.userId+'/'+this.dorId, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                .then((response) => {
+                    console.log(response.data[0])
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'แก้ไขสำเร็จ',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        this.$router.push('/Dormitory/'+this.userId+'/'+this.dorId)
+                    })
+                }).catch((err) => {
+                    console.log(err)
+                })
+            }
         },
         homeLogin(){
             this.$router.push('/Dormitory/'+this.userId+'/'+this.dorId)

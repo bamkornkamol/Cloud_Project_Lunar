@@ -3,45 +3,41 @@
         <NavBar />
         <div class='flex flex-col h-full items-center font-sans'>
             <form class='w-9/12 flex flex-row m-8'>
-                <div class='basis-5/6 text-4xl'>ชื่อหอพัก</div>
-                <div class='basis-1/6 text-lg items-end justify-end'>
-                    <input v-model="date" id="date" type="month" class="border rounded-xl border-solid border-gray-300 p-1">
+                <div class='basis-5/6 text-4xl'>{{dormitory[0].name}}</div>
+                <div class='basis-1/6 text-lg items-end justify-end flex flex-row'>
+                    <input v-model="date" id="date" type="month" class="w-7/12 border rounded-xl border-solid border-gray-300 p-2">
+                    <input readonly="true" value="เลือก" @click="payAll()" class="w-5/12 bg-[#2E4E73] hover:bg-gray-500 text-white px-4 py-2 rounded-xl text-center cursor-pointer ml-3">
                 </div>
-                <input readonly="true" value="เลือก" @click="payAll()" class="bg-[#2E4E73] hover:bg-gray-500 text-white px-4 py-2 rounded-xl text-center cursor-pointer">
             </form>
             <div class="flex flex-row w-9/12">
-                <table class='basis-1/6 w-full rounded-xl text-center justify-center items-center h-max'>
+                <table class='basis-2/12 w-full rounded-xl text-center justify-center items-center h-max'>
                     <tr class='border-gray-300 border-2'>
-                        <th class='p-2 border-gray-300 border-2 w-2/12'>เลขห้อง</th>
-                        <th class='p-2 border-gray-300 border-2 w-1/12'></th>
+                        <th class='p-2 border-gray-300 border-2 w-1/12'>เลขห้อง</th>
+                        <th class='p-2 border-gray-300 border-2 w-2/12'></th>
                     </tr>
-                    <tr class='border-gray-300 border-2' v-for="val in renter" :key="val">
-                        <td class='p-2 border-gray-300 border-2 w-2/12'>{{val.num_room}}</td>
+                    <tr class='border-gray-300 border-2' v-for="item in renter" :key="item">
+                        <td class='p-2 border-gray-300 border-2 w-2/12'>{{item.num_room}}</td>
                         <td class='p-2 border-gray-300 border-2 w-1/12'>
-                            <button @click="show_modal = !show_modal; show.push(val);" class="bg-[#2E4E73] hover:bg-gray-500 text-white w-full p-1 rounded-3xl text-center  cursor-pointer">แจ้งชำระ</button>
+                            <button @click="show_modal = !show_modal; show.push(item);" class="bg-[#2E4E73] hover:bg-gray-500 text-white w-full p-1 rounded-3xl text-center  cursor-pointer">แจ้งชำระ</button>
                         </td>
                     </tr>
                 </table>
-                <table class='basis-5/6 w-full rounded-xl text-center justify-center items-center h-max ml-5'>
+                <table class='basis-10/12 w-full rounded-xl text-center justify-center items-center h-max ml-5'>
                     <tr class='border-gray-300 border-2'>
-                        <th class='p-2 border-gray-300 border-2 w-2/12'>เลขห้อง</th>
+                        <th class='p-2 border-gray-300 border-2'>เลขห้อง</th>
                         <th class='p-2 border-gray-300 border-2'>หน่วยน้ำ</th>
                         <th class='p-2 border-gray-300 border-2'>ค่าน้ำ</th>
                         <th class='p-2 border-gray-300 border-2'>หน่วยไฟ</th>
                         <th class='p-2 border-gray-300 border-2'>ค่าไฟ</th>
-                        <!-- <th class='p-2 border-gray-300 border-2 w-1/12'></th> -->
-                        <th class='p-2 border-gray-300 border-2 w-1/12'>สถานะ</th>
+                        <th class='p-2 border-gray-300 border-2 w-2/12'>สถานะ</th>
                         <th class='p-2 border-gray-300 border-2 w-2/12'>ยืนยันการชำระเงิน</th>
                     </tr>
                     <tr class='border-gray-300 border-2' v-for="val in payment" :key="val">
-                        <td class='p-2 border-gray-300 border-2 w-2/12'>{{val.num_room}}</td>
+                        <td class='p-2 border-gray-300 border-2 '>{{val.num_room}}</td>
                         <td class='p-2 border-gray-300 border-2'>{{val.water}}</td>
-                        <td class='p-2 border-gray-300 border-2 w-1/12'>{{val.water*dorm[0].water}}</td>
+                        <td class='p-2 border-gray-300 border-2'>{{val.water*dorm[0].water}} บาท</td>
                         <td class='p-1 border-gray-300 border-2'>{{val.light}}</td>
-                        <td class='p-2 border-gray-300 border-2 w-1/12'>{{val.light*dorm[0].light}}</td>
-                        <!-- <td class='p-2 border-gray-300 border-2 w-1/12'>
-                            <button @click="show_modal = !show_modal; show.push(val);" class="bg-[#2E4E73] hover:bg-gray-500 text-white w-full p-1 rounded-3xl text-center  cursor-pointer">แจ้งชำระ</button>
-                        </td> -->
+                        <td class='p-2 border-gray-300 border-2'>{{val.light*dorm[0].light}} บาท</td>
                         <td class='p-2 border-gray-300 border-2 w-1/12' v-bind:class="{'text-emerald-500':val.status==1, 'text-red-600':val.status==0}" >{{val.status==0? 'ยังไม่ชำระ':'ชำระแล้ว'}}</td>
                         <td class='p-2 border-gray-300 border-2 w-1/12'>
                             <button @click="changeStatus(val.renter_id)" class="bg-[#2E4E73] hover:bg-gray-500 text-white w-full p-1 rounded-3xl text-center  cursor-pointer">ยืนยันการชำระเงิน</button>
@@ -92,6 +88,7 @@ export default {
           renter:null,
           payment:null,
           dorm:null,
+          dormitory:null,
           userId : this.$route.params.userId,
           dorId : this.$route.params.dorId,
           show_modal: false,
@@ -103,8 +100,21 @@ export default {
           status: '0'
         };
     },
+    created(){
+        axios.get("http://localhost:3000/Dormitory/" + this.$route.params.userId+'/' + this.$route.params.dorId)
+        .then((response) => {
+            this.dormitory = response.data.dormitory[0];
+            console.log(this.dormitory)
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+    ,
     methods: {
         payAll(){
+            this.renter=null;
+            this.payment=null;
             axios.get("http://localhost:3000/renter/" + this.userId+'/'+this.dorId)
             .then((response) => {
                 this.renter = response.data.renter[0];
