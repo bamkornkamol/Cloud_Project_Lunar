@@ -19,8 +19,8 @@
 
         <div class="flex flex-row mt-14 mx-20">
             <div class="basis-5/6">
-                <h1 class='text-3xl font-medium tracking-wide mb-5'>สวัสดีคุณ อนัญพร</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec</p>
+                <h1 class='text-3xl font-medium tracking-wide mb-5'>สวัสดีคุณ {{user[0].fname}}</h1>
+                <p>ยินดีต้อนรับคุณ{{user[0].fname}}เข้าสู่ Lunar Dormitory!</p>
             </div>
             <div class="flex flex-row mx-10 gap-5 justify-end basis-1/6">
                 <div @click="regisDor()" class="h-12 w-9/12 ">
@@ -29,11 +29,12 @@
             </div>
         </div>
         <div class='flex flex-col items-center mt-10 mx-20'>
-            <div>
+            <div class='w-10/12'>
                 <h1 class='text-3xl font-medium tracking-wide'>หอพัก</h1>
-                <p class='mt-5 mb-5'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec</p>
+                <p class='mt-5 mb-5'>หอพักของคุณ {{user[0].fname}}</p>
             </div>
-            <div class='grid grid-cols-2 gap-10 mb-10 w-9/12'>
+            <div class="text-gray-400 text-xl" v-bind:class="{'invisible':dormitory.length != 0}">คุณ {{user[0].fname}} ยังไม่มีหอพัก</div>
+            <div class='grid grid-cols-2 gap-10 mb-20 w-9/12'>
                 <div v-for="val in dormitory" :key="val">
                     <div @click="detailDor(val.id)" class="w-full flex flex-col items-center text-left bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 hover:no-underline hover:shadow-lg">
                         <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="../../public/uploads/image.png" alt=""/>
@@ -63,19 +64,26 @@ export default {
     data() {
         return {
           dormitory:null,
+          user:null,
           userId : this.$route.params.userId
         };
     },
     created() {
-      axios.get("http://localhost:3000/myDormitory/" + this.$route.params.userId)
-      .then((response) => {
-        this.dormitory = response.data.dormitory[0];
-        console.log(this.$route.params.userId)
-        console.log(response)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        axios.get("http://localhost:3000/myDormitory/" + this.$route.params.userId)
+        .then((response) => {
+            this.dormitory = response.data.dormitory[0];
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+        axios.get("http://localhost:3000/user/" + this.$route.params.userId)
+        .then((response) => {
+            this.user = response.data.user[0];
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     },
     methods: {
         detailDor(id){

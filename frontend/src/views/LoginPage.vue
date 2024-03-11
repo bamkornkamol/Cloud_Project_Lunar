@@ -21,7 +21,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-6 h-6 absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
                     </svg>
-                    <input type="text" v-model="password" placeholder="รหัสผ่าน" class="rounded-xl border-gray-200 border-2 pt-2 pb-2 pl-10 placeholder-gray-500 w-full shadow-xl"/>
+                    <input type="password" v-model="password" placeholder="รหัสผ่าน" class="rounded-xl border-gray-200 border-2 pt-2 pb-2 pl-10 placeholder-gray-500 w-full shadow-xl"/>
                 </div>
 
                 <router-link to="">
@@ -71,7 +71,7 @@ export default {
                 this.profie = response.data
                 if(this.profie == 'อีเมลหรือรหัสผ่านไม่ถูกต้อง'){
                     Swal.fire({
-                        position: 'top-end',
+                        position: 'center',
                         icon: 'error',
                         title: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
                         showConfirmButton: false,

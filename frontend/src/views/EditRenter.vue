@@ -3,10 +3,15 @@
         <NavBar />
         <form class="flex flex-col items-center h-screen mt-14">
             <h1 class="text-4xl mb-6">แก้ไขรายละเอียดผู้เช่า</h1>
+            <label for="num_room">เลขห้อง</label>
             <input :value="renter[0].num_room" id="num_room" type="text" placeholder="เลขห้อง" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
+            <label for="type">ประเภทห้อง</label>
             <input :value="renter[0].type" id="type" type="text" placeholder="ประเภทห้อง" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
+            <label for="price">ราคาห้อง</label>
             <input :value="renter[0].price" id="price" type="text" placeholder="ราคา" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
+            <label for="email">อีเมลผู้ใช้</label>
             <input :value="renter[0].email" id="email" type="text" placeholder="E-mail" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
+            <label for="">ข้อมูลผู้ใช้</label>
             <input :value="renter[0].name1" id="name1" type="text" placeholder="ชื่อผู้เช่า1" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
             <input :value="renter[0].phone1" id="phone1" type="text" placeholder="เบอร์โทรผู้เช่า1" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
             <input :value="renter[0].name2" id="name2" type="text" placeholder="ชื่อผู้เช่า2" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>

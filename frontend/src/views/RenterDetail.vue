@@ -3,13 +3,19 @@
         <NavBar />
         <div class="flex flex-col items-center h-screen mt-14">
             <h1 class="text-4xl mb-6">รายละเอียดผู้เช่า</h1>
-            <div class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12">{{renter[0].num_room}}</div>
-            <div class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12">{{renter[0].type}}</div>
-            <div class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12">{{renter[0].price}}</div>
-            <div class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12">{{renter[0].name1}}</div>
-            <div class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12">{{renter[0].phone1}}</div>
-            <div class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12">{{renter[0].name2}}</div>
-            <div class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12">{{renter[0].phone2}}</div>
+            <p>เลขห้อง :</p>
+            <div class="border border-gray-300 rounded-3xl p-3 mb-3 w-5/12">{{renter[0].num_room}}</div>
+            <p>ประเภท :</p>
+            <div class="border border-gray-300 rounded-3xl p-3 mb-3 w-5/12">{{renter[0].type}}</div>
+            <p>ราคา :</p>
+            <div class="border border-gray-300 rounded-3xl p-3 mb-3 w-5/12">{{renter[0].price}}</div>
+            <p>อีเมลผู้เช่า : </p>
+            <div class="border border-gray-300 rounded-3xl p-3 mb-3 w-5/12">{{renter[0].email}}</div>
+            <p>รายละเอียดผู้เช่า</p>
+            <div class="border border-gray-300 rounded-3xl p-3 mb-3 w-5/12">{{renter[0].name1}}</div>
+            <div class="border border-gray-300 rounded-3xl p-3 mb-3 w-5/12">{{renter[0].phone1}}</div>
+            <div class="border border-gray-300 rounded-3xl p-3 mb-3 w-5/12">{{renter[0].name2}}</div>
+            <div class="border border-gray-300 rounded-3xl p-3 mb-3 w-5/12">{{renter[0].phone2}}</div>
             <button @click="renterAll()" class="bg-[#2E4E73] hover:bg-gray-500 text-white px-4 py-2 rounded">ปิด</button>
         </div>
         <FooterBar/>

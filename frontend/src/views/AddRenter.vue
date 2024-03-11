@@ -1,18 +1,47 @@
 <template>
     <section id="app" style="font-family: 'Prompt', sans-serif;">
         <NavBar />
-        <form class="flex flex-col items-center h-screen mt-14">
-            <h1 class="text-4xl mb-6">เพิ่มรายละเอียดผู้เช่า</h1>
-            <input v-model="num_room" type="text" placeholder="เลขห้อง" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
-            <input v-model="type" type="text" placeholder="ประเภทห้อง" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
-            <input v-model="price" type="text" placeholder="ราคา" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
-            <input v-model="email" type="text" placeholder="E-mail" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
-            <input v-model="name1" type="text" placeholder="ชื่อผู้เช่า1" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
-            <input v-model="phone1" type="text" placeholder="เบอร์โทรผู้เช่า1" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
-            <input v-model="name2" type="text" placeholder="ชื่อผู้เช่า2" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
-            <input v-model="phone2" type="text" placeholder="เบอร์โทรผู้เช่า2" class="border border-gray-300 rounded-xl p-3 mb-3 w-5/12"/>
+        <div class="flex flex-col items-center mt-10">
+        <h1 class="text-4xl mb-4">เพิ่มรายละเอียดผู้เช่า</h1>
+        <form class="flex flex-col items-center w-5/12">
+            <div class="grid grid-cols-2 w-full">
+                <div class="flex flex-col m-2">
+                    <label class="" for="">เลขห้อง</label>
+                    <input v-model="num_room" type="text" placeholder="เลขห้อง" class="border border-gray-300 rounded-xl p-3 mb-3 w-full"/>
+                </div>
+                <div class="flex flex-col m-2">
+                    <label for="">ประเภทห้อง</label>
+                    <input v-model="type" type="text" placeholder="ประเภทห้อง" class="border border-gray-300 rounded-xl p-3 mb-3 w-full"/>
+                </div>
+                <div class="flex flex-col m-2">
+                    <label for="">ราคาห้อง</label>
+                    <input v-model="price" type="text" placeholder="ราคา" class="border border-gray-300 rounded-xl p-3 mb-3 w-full"/>
+                </div>
+                <div class="flex flex-col m-2">
+                    <label for="">อีเมลผู้เช่า</label>
+                    <input v-model="email" type="text" placeholder="E-mail" class="border border-gray-300 rounded-xl p-3 mb-3 w-full"/>
+                </div>
+                <div class="flex flex-col m-2">
+                    <label for="">ชื่อผู้เช่า</label>
+                    <input v-model="name1" type="text" placeholder="ชื่อผู้เช่า1" class="border border-gray-300 rounded-xl p-3 mb-3 w-full"/>
+                </div>
+                <div class="flex flex-col m-2">
+                    <label for="">เบอร์โทรผู้เช่า</label>
+                    <input v-model="phone1" type="text" placeholder="เบอร์โทรผู้เช่า1" class="border border-gray-300 rounded-xl p-3 mb-3 w-full"/>
+                </div>
+                <div class="flex flex-col m-2">
+                    <label for="">ชื่อผู้เช่า</label>
+                    <input v-model="name2" type="text" placeholder="ชื่อผู้เช่า2" class="border border-gray-300 rounded-xl p-3 mb-3 w-full"/>
+                </div>
+                <div class="flex flex-col m-2">
+                    <label for="">เบอร์โทรผู้เช่า</label>
+                    <input v-model="phone2" type="text" placeholder="เบอร์โทรผู้เช่า2" class="border border-gray-300 rounded-xl p-3 mb-3 w-full"/>
+                </div>
+            </div>
+            
             <input @click="regis()" value="Save" class="bg-[#2E4E73] hover:bg-gray-500 text-white px-4 py-2 rounded-xl text-center"/>
         </form>
+        </div>
         <FooterBar/>
     </section>
 </template>

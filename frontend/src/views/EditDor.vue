@@ -1,15 +1,12 @@
-@ -0,0 +1,98 @@
 <template>
     <section id="app" style="font-family: 'Prompt', sans-serif;">
         <NavBar />
-        <div>
+        <div class="mb-20">
             <form>
                 <div class="flex flex-row w-full mt-10">
                     <h5 class="text-3xl font-medium tracking-wide mx-10 basis-3/4">แก้ไขข้อมูลหอพัก</h5>
                     <div class="flex flex-row mx-10 gap-5 justify-end basis-1/4">
-                        <router-link to="" class="w-10/12">
-                            <button @click="regis()" class="text-white w-full font-medium p-3 rounded-3xl bg-[#2E4E73] hover:bg-gray-500 text-center">บันทึก</button>
-                        </router-link>
+                        <input readonly='true' value="บันทึก" @click="regis()" class="cursor-pointer text-white w-10/12 font-medium p-3 rounded-3xl bg-[#2E4E73] hover:bg-gray-500 text-center">
                         <router-link to="" class="w-10/12">
                             <button @click="homeLogin()" to="" class="w-full border-2 font-medium p-2 rounded-3xl border-[#2E4E73] text-[#2E4E73] text-center">ยกเลิก</button>
                         </router-link>

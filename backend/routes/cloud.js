@@ -65,6 +65,20 @@ router.get('/myDormitory/:userId',upload.single(), async function(req, res, next
     }
 })
 
+router.get('/user/:userId',upload.single(), async function(req, res, next){
+    try{
+        const result = await pool.query(
+            `select * from user where id = ?`, [req.params.userId]
+        );
+        console.log(result)
+        return res.json({
+            user: result
+          })
+    }catch (err){
+        console.log(err)
+    }
+})
+
 // dormitory ==========================================================================================================================
 
 router.post('/RegisDor/:userId',upload.single(), async function(req, res, next){

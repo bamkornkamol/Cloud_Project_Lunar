@@ -36,7 +36,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-6 h-6 absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
                     </svg>
-                    <input v-model="password" type="text" placeholder="รหัสผ่าน" class="rounded-xl border-gray-300 border-2 pt-2 pb-2 pl-10 placeholder-gray-500 w-full"/>
+                    <input v-model="password" type="password" placeholder="รหัสผ่าน" class="rounded-xl border-gray-300 border-2 pt-2 pb-2 pl-10 placeholder-gray-500 w-full"/>
                 </div>
                 <div class="relative mb-3 w-5/12">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-6 h-6 absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400">
@@ -62,11 +62,11 @@ import Swal from 'sweetalert2'
 export default {
     data() {
         return {
-          fname: '',
-          lname: '',
-          email: '',
-          password: '',  
-          phone: ''
+          fname: null,
+          lname: null,
+          email: null,
+          password: null,  
+          phone: null
         };
     },
     methods: {
@@ -82,25 +82,35 @@ export default {
                 console.log(value);
             }
 
-            axios.post("http://localhost:3000/RegisUser", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((response) => {
-                console.log(response)
+            if(this.fname == null || this.lname == null || this.email == null || this.password == null || this.phone == null){
                 Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'สร้างบัญชีผู้ใช้สำเร็จ',
+                    position: 'center',
+                    icon: 'info',
+                    title: 'กรุณากรอกข้อมูลให้ครบถ้วน',
                     showConfirmButton: false,
                     timer: 1500
-                }).then(() => {
-                    this.$router.push('/Login')
                 })
-            }).catch((err) => {
-                console.log(err)
-            })
+            }else{
+                axios.post("http://localhost:3000/RegisUser", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                .then((response) => {
+                    console.log(response)
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'สร้างบัญชีผู้ใช้สำเร็จ',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        this.$router.push('/Login')
+                    })
+                }).catch((err) => {
+                    console.log(err)
+                })
+            } 
         },
     }
 }

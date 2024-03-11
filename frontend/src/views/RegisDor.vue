@@ -1,14 +1,27 @@
 <template>
     <section id="app" style="font-family: 'Prompt', sans-serif;">
-        <NavBar />
-        <div>
+        <nav class="p-3" style="backgroundColor: #2E4E73; font-family: 'Prompt', sans-serif;">
+          <div class="flex flex-row">
+              <div class="flex flex-col basis-11/12">
+                  <div class="flex flex-row mx-5">
+                      <h1 class="text-white text-lg tracking-wider">LUNAR</h1>
+                      <img src="../../public/uploads/moon.png" alt="moon" class="mx-2 w-7">
+                  </div>
+                  <h1 class="text-white text-lg tracking-wider mx-5">DORMITORY</h1>
+              </div>
+              <div class="flex justify-center content-center items-center w-32 basis-1/12">
+                  <router-link to="/">
+                    <button class="text-white text-base rounded-full border-2 px-3 py-2 " style="borderColor: #9ABDE3; font-family: 'Prompt', sans-serif;">ออกจากระบบ</button>
+                  </router-link>
+              </div>
+          </div>
+        </nav>
+        <div class="mb-20">
             <form>
                 <div class="flex flex-row w-full mt-10">
                     <h5 class="text-3xl font-medium tracking-wide mx-10 basis-3/4">ลงทะเบียนหอพัก</h5>
                     <div class="flex flex-row mx-10 gap-5 justify-end basis-1/4">
-                        <router-link to="" class="w-10/12">
-                            <button @click="regis()" class="text-white w-full font-medium p-3 rounded-3xl bg-[#2E4E73] hover:bg-gray-500 text-center">บันทึก</button>
-                        </router-link>
+                        <input readonly="true" value="ยืนยัน" @click="regis()" class="text-white w-10/12 font-medium p-3 rounded-3xl bg-[#2E4E73] hover:bg-gray-500 text-center cursor-pointer">
                         <router-link to="" class="w-10/12">
                             <button @click="homeLogin()" to="" class="w-full border-2 font-medium p-2 rounded-3xl border-[#2E4E73] text-[#2E4E73] text-center">ยกเลิก</button>
                         </router-link>
@@ -82,14 +95,14 @@
 </template>
 
 <script>
-import NavBar from './NavBar.vue';
+// import NavBar from './NavBar.vue';
 import FooterBar from './FooterBar.vue'
 import axios from "axios";
 import Swal from 'sweetalert2'
 
 export default {
   components: {
-    NavBar,
+    // NavBar,
     FooterBar
   },
   data() {
@@ -110,6 +123,7 @@ export default {
     },
     methods: {
         regis(){
+            // if(this.name==null || this.address==null || this.province==null || this.district==null ||)
             let formData = new FormData();
             formData.append("name", this.name);
             formData.append("address", this.address);
