@@ -148,7 +148,7 @@ export default {
                     showConfirmButton: false,
                     timer: 1500
                 })
-            }else if(this.room<=0){
+            }else if(document.getElementById("room").value<=0){
                 this.checkroom = true;
                 Swal.fire({
                     position: 'center',
@@ -157,7 +157,7 @@ export default {
                     showConfirmButton: false,
                     timer: 1500
                 })
-            }else if(this.floor<=0){
+            }else if(document.getElementById("floor").value<=0){
                 this.checkfloor = true;
                 Swal.fire({
                     position: 'center',
@@ -166,7 +166,7 @@ export default {
                     showConfirmButton: false,
                     timer: 1500
                 })
-            }else if(this.water<=0){
+            }else if(document.getElementById("water").value<=0){
                 this.checkwater = true;
                 Swal.fire({
                     position: 'center',
@@ -175,7 +175,7 @@ export default {
                     showConfirmButton: false,
                     timer: 1500
                 })
-            }else if(this.light<=0){
+            }else if(document.getElementById("light").value<=0){
                 this.checklight = true;
                 Swal.fire({
                     position: 'center',

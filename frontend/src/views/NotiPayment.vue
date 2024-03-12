@@ -3,10 +3,10 @@
         <NavBar />
         <div class='flex flex-col h-full items-center font-sans'>
             <form class='w-9/12 flex flex-row m-8'>
-                <div class='basis-5/6 text-4xl'>{{dormitory[0].name}}</div>
-                <div class='basis-1/6 text-lg items-end justify-end flex flex-row'>
-                    <input v-model="date" id="date" type="month" class="w-7/12 border rounded-xl border-solid border-gray-300 p-2">
-                    <input readonly="true" value="เลือก" @click="payAll()" class="w-5/12 bg-[#2E4E73] hover:bg-gray-500 text-white px-4 py-2 rounded-xl text-center cursor-pointer ml-3">
+                <div class='basis-9/12 text-4xl'>{{dormitory[0].name}}</div>
+                <div class='basis-3/12 text-lg items-end justify-end flex flex-row'>
+                    <input v-model="date" id="date" type="month" class="w-8/12 border rounded-xl border-solid border-gray-300 p-2">
+                    <input readonly="true" value="เลือก" @click="payAll()" class="w-4/12 bg-[#2E4E73] hover:bg-gray-500 text-white px-4 py-2 rounded-xl text-center cursor-pointer ml-3">
                 </div>
             </form>
             <div class="flex flex-row w-9/12">
@@ -140,25 +140,6 @@ export default {
             });
         },
         regis(id, num_room){
-            if(document.getElementById('water').value==null ){
-                this.checkwater = true;
-                Swal.fire({
-                    position: 'center',
-                    icon: 'info',
-                    title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            }else if(document.getElementById('light').value==null){
-                this.checklight = true;
-                Swal.fire({
-                    position: 'center',
-                    icon: 'info',
-                    title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            }else{
                 let formData = new FormData();
                 formData.append("water", document.getElementById('water').value);
                 formData.append("light", document.getElementById('light').value);
@@ -191,7 +172,6 @@ export default {
                 }).catch((err) => {
                     console.log(err)
                 })
-            }
         },
         changeStatus(id){
             let month = document.getElementById('date').value;
