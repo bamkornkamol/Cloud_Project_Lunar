@@ -116,7 +116,7 @@ export default {
         };
     },
     created() {
-        axios.get("http://localhost:3000/Dormitory/" + this.$route.params.userId+'/' + this.$route.params.dorId)
+        axios.get("http://47.129.60.17:3000/Dormitory/" + this.$route.params.userId+'/' + this.$route.params.dorId)
         .then((response) => {
             this.dormitory = response.data.dormitory[0];
             console.log(this.$route.params.userId)
@@ -203,7 +203,7 @@ export default {
                     console.log(value);
                 }
 
-                axios.put("http://localhost:3000/editDormitory/"+this.userId+'/'+this.dorId, formData, {
+                axios.put("http://47.129.60.17:3000/editDormitory/"+this.userId+'/'+this.dorId, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },

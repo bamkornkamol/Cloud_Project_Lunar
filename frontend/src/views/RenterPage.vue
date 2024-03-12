@@ -67,7 +67,7 @@ export default {
     },
     created() {
         this.renter=null;
-      axios.get("http://localhost:3000/Renter/" + this.userId+'/'+this.dorId)
+      axios.get("http://47.129.60.17:3000/Renter/" + this.userId+'/'+this.dorId)
       .then((response) => {
         this.renter = response.data.renter[0];
         console.log(this.renter)
@@ -84,7 +84,7 @@ export default {
             this.$router.push('/EditRenter/'+this.userId+'/'+this.dorId+'/'+id)
         },
         delRenter(id){
-            axios.delete("http://localhost:3000/deleteRenter/" + this.userId+'/'+this.dorId+'/'+id)
+            axios.delete("http://47.129.60.17:3000/deleteRenter/" + this.userId+'/'+this.dorId+'/'+id)
             .then((response) => {
                 console.log(response.data[0])
                 Swal.fire({
@@ -94,7 +94,7 @@ export default {
                     showConfirmButton: false,
                     timer: 1800
                 }).then(() => {
-                    axios.get("http://localhost:3000/Renter/" + this.userId+'/'+this.dorId)
+                    axios.get("http://47.129.60.17:3000/Renter/" + this.userId+'/'+this.dorId)
                     .then((response) => {
                         this.renter = response.data.renter[0];
                         console.log(this.renter)

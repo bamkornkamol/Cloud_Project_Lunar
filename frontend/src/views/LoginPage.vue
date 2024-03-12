@@ -62,7 +62,7 @@ export default {
                 console.log(value);
             }
 
-            axios.post("http://localhost:3000/Login", formData ,{
+            axios.post("http://47.129.60.17:3000/Login", formData ,{
                 headers: {
                 'Content-Type': 'multipart/form-data'
             }

@@ -92,7 +92,7 @@ export default {
                     timer: 1500
                 })
             }else{
-                axios.post("http://localhost:3000/RegisUser", formData, {
+                axios.post("http://47.129.60.17:3000/RegisUser", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },

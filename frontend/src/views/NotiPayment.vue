@@ -105,7 +105,7 @@ export default {
         };
     },
     created(){
-        axios.get("http://localhost:3000/Dormitory/" + this.$route.params.userId+'/' + this.$route.params.dorId)
+        axios.get("http://47.129.60.17:3000/Dormitory/" + this.$route.params.userId+'/' + this.$route.params.dorId)
         .then((response) => {
             this.dormitory = response.data.dormitory[0];
             console.log(this.dormitory)
@@ -119,7 +119,7 @@ export default {
         payAll(){
             this.renter=null;
             this.payment=null;
-            axios.get("http://localhost:3000/renter/" + this.userId+'/'+this.dorId)
+            axios.get("http://47.129.60.17:3000/renter/" + this.userId+'/'+this.dorId)
             .then((response) => {
                 this.renter = response.data.renter[0];
                 console.log(this.renter)
@@ -129,7 +129,7 @@ export default {
             });
 
             let month = document.getElementById('date').value;
-            axios.get("http://localhost:3000/payment/" + this.userId+'/'+this.dorId+'/'+month)
+            axios.get("http://47.129.60.17:3000/payment/" + this.userId+'/'+this.dorId+'/'+month)
             .then((response) => {
                 this.payment = response.data.payment[0];
                 this.dorm = response.data.dorm[0];
@@ -151,7 +151,7 @@ export default {
                     console.log(value);
                 }
 
-                axios.post("http://localhost:3000/addPayment/"+this.userId+'/'+this.dorId+'/'+id, formData, {
+                axios.post("http://47.129.60.17:3000/addPayment/"+this.userId+'/'+this.dorId+'/'+id, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
@@ -175,7 +175,7 @@ export default {
         },
         changeStatus(id){
             let month = document.getElementById('date').value;
-            axios.put("http://localhost:3000/editStatus/"+this.userId+'/'+this.dorId+'/'+id+'/'+month)
+            axios.put("http://47.129.60.17:3000/editStatus/"+this.userId+'/'+this.dorId+'/'+id+'/'+month)
             .then((response) => {
                 console.log(response.data[0])
                 Swal.fire({

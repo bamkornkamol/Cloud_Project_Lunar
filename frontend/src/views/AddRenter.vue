@@ -107,7 +107,7 @@ export default {
                     console.log(value);
                 }
 
-                axios.post("http://localhost:3000/addRenter/"+this.userId+'/'+this.dorId, formData, {
+                axios.post("http://47.129.60.17:3000/addRenter/"+this.userId+'/'+this.dorId, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },

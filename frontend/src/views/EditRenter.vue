@@ -77,7 +77,7 @@ export default {
     }
   },
     created() {
-        axios.get("http://localhost:3000/detailRenter/" + this.userId+'/'+this.dorId+'/'+this.rentId)
+        axios.get("http://47.129.60.17:3000/detailRenter/" + this.userId+'/'+this.dorId+'/'+this.rentId)
         .then((response) => {
             this.renter = response.data.renter[0];
             console.log(this.renter)
@@ -121,7 +121,7 @@ export default {
                     console.log(value);
                 }
 
-                axios.put("http://localhost:3000/editRenter/"+this.userId+'/'+this.dorId+'/'+this.rentId, formData, {
+                axios.put("http://47.129.60.17:3000/editRenter/"+this.userId+'/'+this.dorId+'/'+this.rentId, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },

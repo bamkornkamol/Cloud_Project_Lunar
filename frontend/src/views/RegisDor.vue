@@ -206,7 +206,7 @@ export default {
                     console.log(value);
                 }
 
-                axios.post("http://localhost:3000/RegisDor/"+this.$route.params.userId, formData, {
+                axios.post("http://47.129.60.17:3000/RegisDor/"+this.$route.params.userId, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
