@@ -88,9 +88,9 @@ export default {
     },
     methods: {
         regis(){
-            if(this.num_room==null || this.type==null || this.price==null || this.email==null ||
-            this.name1==null || this.phone1==null || this.num_room=="" || this.type=="" || this.price=="" || this.email=="" ||
-            this.name1=="" || this.phone1==""){
+            if(document.getElementById("num_room").value==null || document.getElementById("type").value==null || document.getElementById("price").value==null || document.getElementById("email").value==null ||
+            "name1", document.getElementById("name1").value==null || document.getElementById("phone1").value==null || document.getElementById("num_room").value=="" || document.getElementById("type").value=="" || document.getElementById("price").value=="" || document.getElementById("email").value=="" ||
+            "name1", document.getElementById("name1").value=="" || document.getElementById("phone1").value==""){
                 Swal.fire({
                     position: 'center',
                     icon: 'info',
