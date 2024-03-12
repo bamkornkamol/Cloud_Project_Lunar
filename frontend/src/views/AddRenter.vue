@@ -93,11 +93,11 @@ export default {
                 formData.append("email", this.email);
                 formData.append("name1", this.name1);
                 formData.append("phone1", this.phone1);
-                if(this.name2 == ''){
+                if(this.name2 == null){
                     this.name2 = '-'
                 }
                 formData.append("name2", this.name2);
-                if(this.phone2 == ''){
+                if(this.phone2 == null){
                     this.phone2 = '-'
                 }
                 formData.append("phone2", this.phone2);

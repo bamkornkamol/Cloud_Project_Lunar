@@ -85,7 +85,7 @@
           </div>
         </div>
 
-        <div class="flex justify-center items-center my-10" id="report">
+        <div class="flex justify-center items-center my-10 mb-20" id="report">
           <img src="../../public/uploads/report.png" alt="room" class="object-contain w-[15%]" />
           <div class="flex flex-col pt-5 pb-5 ml-20 w-[40%]" >
             <div class="w-full">

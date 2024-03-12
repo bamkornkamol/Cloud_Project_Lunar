@@ -54,13 +54,13 @@
                     <p class="modal-card-title w-full h-8">แจ้งชำระ {{val.id}}</p>
                 </header> 
                 <section class="modal-card-body flex flex-col justify-center content-center items-center">
-                    <form class="flex flex-col w-full justify-start content-start items-start space-y-3">
+                    <form id="payf" class="flex flex-col w-full justify-start content-start items-start space-y-3">
                         <label for="edit_fname">จำนวนน้ำ (/หน่วย)</label>
                         <input class="w-full p-2 border border-gray-300 border-solid rounded-lg" type="number" id="water">
                         <label for="edit_lname">จำนวนไฟ (/หน่วย)</label>
                         <input class="w-full p-2 border border-gray-300 border-solid rounded-lg" type="number" id="light" >
                         <div class="flex flex-row space-x-5 mt-3">
-                            <input value="แจ้งชำระ" @click="regis(val.id, val.num_room)" class="bg-[#2E4E73] text-white p-2 w-20 hover:bg-emerald-700 rounded-xl">
+                            <input value="แจ้งชำระ" @click="regis(val.id, val.num_room); " class="bg-[#2E4E73] text-white p-2 w-20 hover:bg-emerald-700 rounded-xl">
                             <button @click="show_modal = !show_modal" class="bg-rose-500 text-white p-2 w-20 hover:bg-rose-700 rounded-xl">ยกเลิก</button>
                         </div>
                     </form>
@@ -77,6 +77,7 @@ import NavBar from './NavBar.vue';
 import FooterBar from './FooterBar.vue'
 import axios from "axios";
 import Swal from 'sweetalert2'
+import emailjs from 'emailjs-com';
 
 export default {
     components: {
@@ -154,6 +155,7 @@ export default {
             })
             .then((response) => {
                 console.log(response.data[0])
+                this.sendEmail()
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
@@ -185,6 +187,28 @@ export default {
             }).catch((err) => {
                 console.log(err)
             })
+        },
+        sendEmail(){
+            let formData = {
+                "from_name": this.dormitory[0].name,
+                "room": this.show[0].num_room,
+                "month": document.getElementById('date').value,
+                "price": this.show[0].price,
+                "water": document.getElementById('water').value*this.dormitory[0].water,
+                "num_w": document.getElementById('water').value,
+                "light": document.getElementById('light').value*this.dormitory[0].light,
+                "num_l": document.getElementById('light').value,
+                "total": parseInt(document.getElementById('water').value*this.dormitory[0].water)+parseInt(document.getElementById('light').value*this.dormitory[0].light)+parseInt(this.show[0].price),
+                "date": this.dormitory[0].duedate,
+                "email": this.show[0].email,
+            }
+
+            emailjs.send('service_cczgqvd', 'template_rdu7t9c', formData, '6GRnsKGOMeF8oGpTo')
+                .then((response) => {
+                    console.log('Email ถูกส่งแล้ว', response);
+                }).catch((err) => {
+                    console.log(err)
+                })
         }
     }
 }
