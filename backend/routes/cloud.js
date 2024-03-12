@@ -146,17 +146,26 @@ router.delete('/deleteDormitory/:userId/:dorId', async function(req, res, next){
 
 // renter ==========================================================================================================================
 
-router.post('/addRenter/:userId/:dorId',upload.single(), async function(req, res, next){
+router.post('/addRenter/:userId/:dorId',upload.single(), async (req, res, next)=>{
+    const conn = await pool.getConnection()
+    await conn.beginTransaction()
+
     try{
-        const result = await pool.query(
+        await pool.query(
             "insert into renter(dor_id, name1, name2, phone1, phone2, num_room, type, price, email) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",
             [req.params.dorId, req.body.name1, req.body.name2, req.body.phone1, req.body.phone2, req.body.num_room, req.body.type, req.body.price,
             req.body.email]
         );
-        console.log('success')
-        return res.json(result)
-    }catch (err){
+
+        conn.commit()
+        res.status(200).send('success')
+    }catch(err){
+        await conn.rollback()
         console.log(err)
+        return res.status(404).send('add error')
+    }finally{
+        conn.release()
+        console.log('finally')
     }
 })
 
