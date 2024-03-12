@@ -49,6 +49,7 @@
 </template>
 
 <script>
+// check
 import NavBar from './NavBar.vue';
 import FooterBar from './FooterBar.vue'
 import axios from "axios";
@@ -87,47 +88,60 @@ export default {
     },
     methods: {
         regis(){
-            let formData = new FormData();
-            formData.append("num_room", document.getElementById("num_room").value);
-            formData.append("type", document.getElementById("type").value);
-            formData.append("price", document.getElementById("price").value);
-            formData.append("email", document.getElementById("email").value);
-            formData.append("name1", document.getElementById("name1").value);
-            formData.append("phone1", document.getElementById("phone1").value);
-            if(document.getElementById("name2") == ''){
-                formData.append("name2", '-');
-            }else{
-                formData.append("name2", document.getElementById("name2").value);
-            }
-            if(document.getElementById("phone2") == ''){
-                formData.append("phone2", '-');
-            }else{
-                formData.append("phone2", document.getElementById("phone2").value);
-            }
-            
-            for (const value of formData.values()){
-                console.log(value);
-            }
-
-            axios.put("http://localhost:3000/editRenter/"+this.userId+'/'+this.dorId+'/'+this.rentId, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((response) => {
-                console.log(response.data[0])
+            if(this.num_room==null || this.type==null || this.price==null || this.email==null ||
+            this.name1==null || this.phone1==null || this.num_room=="" || this.type=="" || this.price=="" || this.email=="" ||
+            this.name1=="" || this.phone1==""){
                 Swal.fire({
                     position: 'center',
-                    icon: 'success',
-                    title: 'แก้ไขสำเร็จ',
+                    icon: 'info',
+                    title: 'กรุณากรอกข้อมูลให้ครบถ้วน',
                     showConfirmButton: false,
                     timer: 1500
-                }).then(() => {
-                    this.$router.push('/EditRenter/'+this.userId+'/'+this.dorId+'/'+this.rentId)
                 })
-            }).catch((err) => {
-                console.log(err)
-            })
+            }else{
+                let formData = new FormData();
+                formData.append("num_room", document.getElementById("num_room").value);
+                formData.append("type", document.getElementById("type").value);
+                formData.append("price", document.getElementById("price").value);
+                formData.append("email", document.getElementById("email").value);
+                formData.append("name1", document.getElementById("name1").value);
+                formData.append("phone1", document.getElementById("phone1").value);
+                if(document.getElementById("name2") == ''){
+                    formData.append("name2", '-');
+                }else{
+                    formData.append("name2", document.getElementById("name2").value);
+                }
+                if(document.getElementById("phone2") == ''){
+                    formData.append("phone2", '-');
+                }else{
+                    formData.append("phone2", document.getElementById("phone2").value);
+                }
+                
+                for (const value of formData.values()){
+                    console.log(value);
+                }
+
+                axios.put("http://localhost:3000/editRenter/"+this.userId+'/'+this.dorId+'/'+this.rentId, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                .then((response) => {
+                    console.log(response.data[0])
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'แก้ไขสำเร็จ',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        this.$router.push('/EditRenter/'+this.userId+'/'+this.dorId+'/'+this.rentId)
+                    })
+                }).catch((err) => {
+                    console.log(err)
+                })
+            }
+            
         },
         renterAll(){
             this.$router.push('/Renter/'+this.userId+'/'+this.dorId)

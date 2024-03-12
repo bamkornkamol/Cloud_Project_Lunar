@@ -28,10 +28,10 @@
                 </div>
             </div>
         </div>
-        <div class='flex flex-col items-center mt-10 mx-20'>
+        <div class='flex flex-col items-center mt-10 mx-20 mb-20'>
             <div class='w-10/12'>
                 <h1 class='text-3xl font-medium tracking-wide'>หอพัก</h1>
-                <p class='mt-5 mb-5'>หอพักทั้งหมดของคุณ {{user[0].fname}}</p>
+                <p class='mt-5 mb-5'>หอพักทั้งหมดของคุณ{{user[0].fname}}</p>
             </div>
             <div class="text-gray-400 text-xl" v-bind:class="{'invisible':dormitory.length != 0}">คุณ {{user[0].fname}} ยังไม่มีหอพัก</div>
             <div class='grid grid-cols-2 gap-10 mb-20 w-9/12 cursor-default'>
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+// check
 // import NavBar from './NavBar.vue';
 import FooterBar from './FooterBar.vue'
 import axios from "axios";

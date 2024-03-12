@@ -1,7 +1,7 @@
 <template>
     <section id="app" style="font-family: 'Prompt', sans-serif;">
         <NavBar />
-        <div class='flex flex-col h-full items-center font-sans'>
+        <div class='flex flex-col h-full items-center font-sans mb-20'>
             <div class='w-9/12 flex flex-row m-8'>
                 <div class='basis-5/6 text-4xl'>รายละเอียดผู้เช่า</div>
                 <div class='basis-1/6 text-lg items-end justify-end'>
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+// check
 import NavBar from './NavBar.vue';
 import FooterBar from './FooterBar.vue'
 import axios from "axios";

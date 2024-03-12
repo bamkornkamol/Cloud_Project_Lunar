@@ -68,11 +68,11 @@
                     <div class="grid grid-cols-3">
                         <div>
                             <h1 class="mt-3 mb-3 font-medium">จำนวนห้อง :</h1>
-                            <input v-model="room" type="number" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
+                            <input v-model="room" type="number" v-bind:class="{'border-red-600':checkroom}" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
                         </div>
                         <div>
                             <h1 class="mt-3 mb-3 font-medium">จำนวนชั้น :</h1>
-                            <input v-model="floor" type="number" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
+                            <input v-model="floor" type="number" v-bind:class="{'border-red-600':checkfloor}" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
                         </div>
                         <div>
                             <h1 class="mt-3 mb-3 font-medium">วันที่ตัดรอบบิล :</h1>
@@ -80,11 +80,11 @@
                         </div>
                         <div>
                             <h1 class="mt-3 mb-3 font-medium">ค่าน้ำ (/หน่วย) : </h1>
-                            <input v-model="water" type="number" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
+                            <input v-model="water" type="number" v-bind:class="{'border-red-600':checkwater}" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
                         </div>
                         <div>
                             <h1 class="mt-3 mb-3 font-medium">ค่าไฟ (/หน่วย) :</h1>
-                            <input v-model="light" type="number" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
+                            <input v-model="light" type="number" v-bind:class="{'border-red-600':checklight}" class="border-2 border-gray rounded-lg p-2 w-10/12 shadow-lg">
                         </div>
                     </div>
                 </div>
@@ -95,6 +95,7 @@
 </template>
 
 <script>
+// check
 // import NavBar from './NavBar.vue';
 import FooterBar from './FooterBar.vue'
 import axios from "axios";
@@ -119,7 +120,11 @@ export default {
           water:null,
           light:null,
           duedate:null,
-          checkDue: false
+          checkDue: false,
+          checkroom: false,
+          checkfloor: false,
+          checkwater: false,
+          checklight: false,
         };
     },
     methods: {
@@ -143,6 +148,42 @@ export default {
                     position: 'center',
                     icon: 'info',
                     title: 'กรุณากรอกวันที่ตัดรอบบิลให้ถูกต้อง',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }else if(this.room<=0){
+                this.checkroom = true;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }else if(this.floor<=0){
+                this.checkfloor = true;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }else if(this.water<=0){
+                this.checkwater = true;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }else if(this.light<=0){
+                this.checklight = true;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
                     showConfirmButton: false,
                     timer: 1500
                 })

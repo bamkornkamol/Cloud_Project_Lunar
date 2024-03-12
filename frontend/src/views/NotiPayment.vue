@@ -51,17 +51,17 @@
             <div class="modal-background" @click="show_modal = !show_modal; show.splice(0);"  ></div>
             <div class="modal-card w-54" v-for="val in show" :key="val">
                 <header class="modal-card-head">
-                    <p class="modal-card-title w-full h-8">แจ้งชำระ {{val.id}}</p>
+                    <p class="modal-card-title w-full h-8">แจ้งชำระ {{val.num_room}}</p>
                 </header> 
                 <section class="modal-card-body flex flex-col justify-center content-center items-center">
                     <form id="payf" class="flex flex-col w-full justify-start content-start items-start space-y-3">
                         <label for="edit_fname">จำนวนน้ำ (/หน่วย)</label>
-                        <input class="w-full p-2 border border-gray-300 border-solid rounded-lg" type="number" id="water">
+                        <input v-bind:class="{'border-red-600':checkwater}" class="w-full p-2 border border-gray-300 border-solid rounded-lg" type="number" id="water">
                         <label for="edit_lname">จำนวนไฟ (/หน่วย)</label>
-                        <input class="w-full p-2 border border-gray-300 border-solid rounded-lg" type="number" id="light" >
+                        <input v-bind:class="{'border-red-600':checklight}" class="w-full p-2 border border-gray-300 border-solid rounded-lg" type="number" id="light" >
                         <div class="flex flex-row space-x-5 mt-3">
-                            <input value="แจ้งชำระ" @click="regis(val.id, val.num_room); " class="bg-[#2E4E73] text-white p-2 w-20 hover:bg-emerald-700 rounded-xl">
-                            <button @click="show_modal = !show_modal" class="bg-rose-500 text-white p-2 w-20 hover:bg-rose-700 rounded-xl">ยกเลิก</button>
+                            <input value="แจ้งชำระ" @click="regis(val.id, val.num_room); " readonly="true" class="cursor-pointer bg-[#2E4E73] text-white p-2 w-20 hover:bg-emerald-700 rounded-xl">
+                            <button @click="show_modal = !show_modal" class="cursor-pointer bg-rose-500 text-white p-2 w-20 hover:bg-rose-700 rounded-xl">ยกเลิก</button>
                         </div>
                     </form>
                    
@@ -73,6 +73,7 @@
 </template>
 
 <script>
+// check
 import NavBar from './NavBar.vue';
 import FooterBar from './FooterBar.vue'
 import axios from "axios";
@@ -98,7 +99,9 @@ export default {
           light:null,
           date:null,
           num_room:null,
-          status: '0'
+          status: '0',
+          checkwater: false,
+          checklight: false,
         };
     },
     created(){
@@ -137,38 +140,58 @@ export default {
             });
         },
         regis(id, num_room){
-            let formData = new FormData();
-            formData.append("water", document.getElementById('water').value);
-            formData.append("light", document.getElementById('light').value);
-            formData.append("num_room", num_room);
-            formData.append("date", document.getElementById('date').value);
-            formData.append("status", this.status);
-            
-            for (const value of formData.values()){
-                console.log(value);
-            }
-
-            axios.post("http://localhost:3000/addPayment/"+this.userId+'/'+this.dorId+'/'+id, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((response) => {
-                console.log(response.data[0])
-                this.sendEmail()
+            if(document.getElementById('water').value==null ){
+                this.checkwater = true;
                 Swal.fire({
                     position: 'center',
-                    icon: 'success',
-                    title: 'แจ้งชำระสำเร็จ',
+                    icon: 'info',
+                    title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
                     showConfirmButton: false,
                     timer: 1500
-                }).then(() => {
-                    this.payAll()
-                    this.show_modal = !this.show_modal
                 })
-            }).catch((err) => {
-                console.log(err)
-            })
+            }else if(document.getElementById('light').value==null){
+                this.checklight = true;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: 'กรุณากรอกข้อมูลให้ถูกต้อง',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }else{
+                let formData = new FormData();
+                formData.append("water", document.getElementById('water').value);
+                formData.append("light", document.getElementById('light').value);
+                formData.append("num_room", num_room);
+                formData.append("date", document.getElementById('date').value);
+                formData.append("status", this.status);
+                
+                for (const value of formData.values()){
+                    console.log(value);
+                }
+
+                axios.post("http://localhost:3000/addPayment/"+this.userId+'/'+this.dorId+'/'+id, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                .then((response) => {
+                    console.log(response.data[0])
+                    this.sendEmail()
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'แจ้งชำระสำเร็จ',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        this.payAll()
+                        this.show_modal = !this.show_modal
+                    })
+                }).catch((err) => {
+                    console.log(err)
+                })
+            }
         },
         changeStatus(id){
             let month = document.getElementById('date').value;

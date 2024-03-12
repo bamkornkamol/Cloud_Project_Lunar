@@ -99,6 +99,7 @@
 </template>
 
 <script>
+// check
 import FooterBar from './FooterBar.vue'
 
 export default {
