@@ -94,10 +94,10 @@ export default {
                     showConfirmButton: false,
                     timer: 1800
                 }).then(() => {
+                    this.renter=null;
                     axios.get("http://47.129.60.17:3000/Renter/" + this.userId+'/'+this.dorId)
                     .then((response) => {
                         this.renter = response.data.renter[0];
-                        console.log(this.renter)
                     })
                     .catch((err) => {
                         console.log(err);

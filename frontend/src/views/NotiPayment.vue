@@ -119,21 +119,12 @@ export default {
         payAll(){
             this.renter=null;
             this.payment=null;
-            axios.get("http://47.129.60.17:3000/renter/" + this.userId+'/'+this.dorId)
-            .then((response) => {
-                this.renter = response.data.renter[0];
-                console.log(this.renter)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-
             let month = document.getElementById('date').value;
             axios.get("http://47.129.60.17:3000/payment/" + this.userId+'/'+this.dorId+'/'+month)
             .then((response) => {
                 this.payment = response.data.payment[0];
                 this.dorm = response.data.dorm[0];
-                console.log(this.payment)
+                this.renter = response.data.renter[0];
             })
             .catch((err) => {
                 console.log(err);

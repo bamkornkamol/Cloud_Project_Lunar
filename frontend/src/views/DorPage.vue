@@ -60,14 +60,6 @@ export default {
       axios.get("http://localhost:3000/Dormitory/" + this.$route.params.userId+'/' + this.$route.params.dorId)
       .then((response) => {
         this.dormitory = response.data.dormitory[0];
-        console.log(response)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-      axios.get("http://localhost:3000/Renter/" + this.$route.params.userId+'/' + this.$route.params.dorId)
-      .then((response) => {
         this.renter = response.data.renter[0];
         console.log(response)
       })

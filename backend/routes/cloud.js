@@ -56,9 +56,13 @@ router.get('/myDormitory/:userId',upload.single(), async function(req, res, next
         const result = await pool.query(
             `select * from dormitory where user_id = ?`, [req.params.userId]
         );
+        const result2 = await pool.query(
+            `select * from user where id = ?`, [req.params.userId]
+        );
         console.log(result)
         return res.json({
-            dormitory: result
+            dormitory: result,
+            user:result2
           })
     }catch (err){
         console.log(err)
@@ -100,8 +104,12 @@ router.get('/Dormitory/:userId/:dorId',upload.single(), async function(req, res,
         const result = await pool.query(
             `select * from dormitory where id = ? and user_id = ?`, [req.params.dorId, req.params.userId]
         );
+        const result2 = await pool.query(
+            `select * from renter where dor_id = ? ORDER BY num_room`, [req.params.dorId]
+        );
         return res.json({
-            dormitory: result
+            dormitory: result,
+            renter: result2
           })
     }catch (err){
         console.log(err)
@@ -228,10 +236,15 @@ router.get('/payment/:userId/:dorId/:date',upload.single(), async function(req, 
             `select * from payment where dor_id = ? and date=? ORDER BY num_room`, [req.params.dorId, req.params.date]
         );
 
+        const result3 = await pool.query(
+            `select * from renter where dor_id = ? ORDER BY num_room`, [req.params.dorId]
+        );
+
         console.log(result2)
         return res.json({
             dorm:result,
             payment: result2,
+            renter: result3
         })
     }catch (err){
         console.log(err)

@@ -73,13 +73,6 @@ export default {
         axios.get("http://47.129.60.17:3000/myDormitory/" + this.$route.params.userId)
         .then((response) => {
             this.dormitory = response.data.dormitory[0];
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-        axios.get("http://47.129.60.17:3000/user/" + this.$route.params.userId)
-        .then((response) => {
             this.user = response.data.user[0];
         })
         .catch((err) => {
